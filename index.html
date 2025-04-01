@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación XV Años</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dorado: #ffd700;
+            --rosa: #ff6b8b;
+            --azul-noche: #0a0e23;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--azul-noche);
+            color: white;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Cielo estrellado más rápido */
+        .cielo {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            animation: moverCielo 60s linear infinite;
+        }
+        
+        @keyframes moverCielo {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .estrella {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: brillar 3s infinite alternate;
+        }
+        
+        @keyframes brillar {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+        
+        /* Tarjeta principal */
+        .card {
+            background: rgba(10, 14, 35, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 
+                0 0 30px rgba(255, 215, 0, 0.3),
+                0 0 60px rgba(255, 107, 139, 0.2);
+            border: 1px solid var(--dorado);
+            margin: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Luna más grande */
+        .luna {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            background: #f8f3d6;
+            border-radius: 50%;
+            box-shadow: 
+                0 0 30px #f8f3d6,
+                0 0 60px rgba(248, 243, 214, 0.5);
+            top: -70px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: -1;
+            animation: flotar 6s ease-in-out infinite alternate;
+        }
+        
+        .luna::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #e0d5b8;
+            border-radius: 50%;
+            top: 35px;
+            left: 30px;
+            box-shadow: 
+                35px 15px 0 0 #e0d5b8,
+                60px 40px 0 -5px #e0d5b8,
+                25px 65px 0 0 #e0d5b8;
+        }
+        
+        @keyframes flotar {
+            0% { transform: translate(-50%, 0) rotate(0deg); }
+            100% { transform: translate(-50%, -15px) rotate(5deg); }
+        }
+        
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            margin: 60px 0 20px 0;
+            color: var(--dorado);
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+        }
+        
+        /* Carrusel de fotos */
+        .carrusel {
+            width: 100%;
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            border: 2px solid var(--dorado);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            height: 300px;
+        }
+        
+        .fotos-container {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+        }
+        
+        .foto {
+            min-width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .carrusel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 1.2rem;
+        }
+        
+        #prevBtn {
+            left: 10px;
+        }
+        
+        #nextBtn {
+            right: 10px;
+        }
+        
+        /* Secciones interactivas */
+        .seccion {
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid var(--rosa);
+            transition: all 0.3s;
+            cursor: pointer;
+            text-align: left;
+        }
+        
+        .seccion:hover {
+            background: rgba(255, 215, 0, 0.2);
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .seccion h3 {
+            color: var(--dorado);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .seccion h3::before {
+            content: '✦';
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .message {
+            font-style: italic;
+            margin: 25px 0;
+            padding: 15px;
+            border-top: 1px dashed var(--rosa);
+            border-bottom: 1px dashed var(--rosa);
+            color: var(--dorado);
+            font-size: 1.1rem;
+        }
+        
+        @media (max-width: 600px) {
+            .card {
+                padding: 25px 15px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+                margin-top: 50px;
+            }
+            
+            .luna {
+                width: 120px;
+                height: 120px;
+                top: -60px;
+            }
+            
+            .carrusel {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cielo estrellado -->
+    <div class="cielo" id="cielo"></div>
+    
+    <!-- Tarjeta principal -->
+    <div class="card">
+        <!-- Luna grande -->
+        <div class="luna"></div>
+        
+        <h1>¡Mis XV Años!</h1>
+        
+        <!-- Carrusel de 5 fotos -->
+        <div class="carrusel">
+            <div class="fotos-container" id="fotosContainer">
+                <img src="lunita1.png" class="foto" alt="Foto 1">
+                <img src="lunitagrande3.jpg" class="foto" alt="Foto 2">
+                <img src="lunita2.png" class="foto" alt="Foto 3">
+                <img src="lunitagrande2.png" class="foto" alt="Foto 4">
+                <img src="lunita3.png" class="foto" alt="Foto 5">
+            </div>
+            <button class="carrusel-btn" id="prevBtn">❮</button>
+            <button class="carrusel-btn" id="nextBtn">❯</button>
+        </div>
+        
+        <!-- Sección Eucaristía -->
+        <div class="seccion" onclick="this.classList.toggle('expandida')">
+            <h3>Eucaristía</h3>
+            <p><strong>⛪ Iglesia:</strong> Parroquia San José</p>
+            <p><strong>🕒 Hora:</strong> 4:00 PM</p>
+            <p><strong>📅 Fecha:</strong> [Día/Mes/Año]</p>
+        </div>
+        
+        <!-- Sección Celebración -->
+        <div class="seccion" onclick="this.classList.toggle('expandida')">
+            <h3>Celebración</h3>
+            <p><strong>🏠 Lugar:</strong> Casa de Ramiro Sepúlveda</p>
+            <p><strong>🕢 Hora:</strong> 7:00 PM</p>
+            <p><strong>📍 Dirección:</strong> Vía Sangil - Barichara, KL 11, Vereda La Laja</p>
+        </div>
+        
+        <!-- Mensaje especial -->
+        <div class="message">
+            "Te invito porque eres parte de mi vida y quiero compartir contigo este día tan especial"
+        </div>
+    </div>
+
+    <!-- Audio (autoplay) -->
+    <audio id="audio" autoplay loop>
+        <source src="The Marías - No One Noticed (Visualizer).mp3" type="audio/mp3">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <script>
+        // Crear estrellas dinámicas (más rápido)
+        const cielo = document.getElementById('cielo');
+        for (let i = 0; i < 120; i++) {
+            const estrella = document.createElement('div');
+            estrella.classList.add('estrella');
+            estrella.style.width = `${Math.random() * 2 + 1}px`;
+            estrella.style.height = estrella.style.width;
+            estrella.style.left = `${Math.random() * 100}%`;
+            estrella.style.top = `${Math.random() * 100}%`;
+            estrella.style.animationDelay = `${Math.random() * 3}s`;
+            cielo.appendChild(estrella);
+        }
+
+        // Carrusel de fotos
+        const fotosContainer = document.getElementById('fotosContainer');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let currentIndex = 0;
+        const totalFotos = 6; // Cambiar según número de fotos
+        
+        function updateCarrusel() {
+            fotosContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+        
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % totalFotos;
+            updateCarrusel();
+        });
+        
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + totalFotos) % totalFotos;
+            updateCarrusel();
+        });
+        
+        // Deslizar con touch (para móviles)
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        fotosContainer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, false);
+        
+        fotosContainer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, false);
+        
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                currentIndex = (currentIndex + 1) % totalFotos; // Deslizar izquierda
+            } else if (touchEndX > touchStartX + 50) {
+                currentIndex = (currentIndex - 1 + totalFotos) % totalFotos; // Deslizar derecha
+            }
+            updateCarrusel();
+        }
+
+        // Forzar reproducción de audio (para navegadores que bloquean autoplay)
+        document.addEventListener('click', function() {
+            const audio = document.getElementById('audio');
+            audio.play().catch(e => console.log("Auto-play no permitido"));
+        }, { once: true }); // Solo se ejecuta una vez
+
+        // Reproducir automáticamente al cargar (con manejo de errores)
+        window.addEventListener('load', function() {
+            const audio = document.getElementById('audio');
+            audio.volume = 0.7; // Volumen al 70% para no sorprender
+            const playPromise = audio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    // Mostrar instrucción si el navegador bloquea el autoplay
+                    console.log("Debes interactuar primero con la página");
+                });
+            }
+        });
+    </script>
+</body>
+</html>
